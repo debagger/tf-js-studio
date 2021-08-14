@@ -1,17 +1,19 @@
 <template>
   <q-item clickable v-close-popup>
-    <q-item-section>{{ name }}</q-item-section>
+    <q-item-section>{{ caption }}</q-item-section>
   </q-item>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { ITopMenuActionItem } from 'src/core/ui/TopMenu';
+import { defineComponent, PropType, ref } from 'vue';
 
 export default defineComponent({
   props: {
-    name: String,
+    value: { type: Object as PropType<ITopMenuActionItem>, required: true },
   },
-  setup() {
-    return {};
+  setup(props) {
+    const caption = ref(props.value.caption);
+    return { caption };
   },
 });
 </script>

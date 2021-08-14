@@ -1,7 +1,7 @@
 <template>
   <q-bar>
     <top-menu-root-item
-      v-for="item in root"
+      v-for="item in menu"
       :key="'top-menu-' + item[0]"
       :value="item"
     />
@@ -15,11 +15,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TopMenuRootItem from 'layouts/top-menu/TopMenuRootItem.vue';
-import root from './root';
+import { useApplication } from './../../core/app.core';
 export default defineComponent({
   components: { TopMenuRootItem },
   setup() {
-    return { root };
+    const app = useApplication();
+    const menu = app.useTopMenu();
+    return { menu };
   },
 });
 </script>

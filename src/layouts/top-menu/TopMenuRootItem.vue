@@ -1,10 +1,10 @@
 <template>
   <div class="cursor-pointer non-selectable">
-    {{ value[0] }}
+    {{ caption }}
     <q-menu>
       <q-list dense style="min-width: 100px">
         <top-menu-item-container
-          v-for="(item, idx) in value[1]"
+          v-for="(item, idx) in childs"
           :key="idx"
           :value="item"
         />
@@ -14,10 +14,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { ITopMenuSubmenu } from 'src/core/ui/TopMenu';
+import { defineComponent, PropType, ref } from 'vue';
 import TopMenuItemContainer from './TopMenuItemContainer.vue';
+
 export default defineComponent({
   components: { TopMenuItemContainer },
-  props: { value: Array },
+  props: {
+    value: { type: Object as PropType<ITopMenuSubmenu>, required: true },
+  },
+  setup(props) {
+    const caption = ref(props.value.caption);
+    const childs = ref(props.value.childs);
+    return {
+      caption,
+      childs,
+    };
+  },
 });
 </script>
