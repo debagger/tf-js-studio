@@ -4,7 +4,7 @@
       <top-menu />
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-grey-1">
+    <q-drawer behavior="desktop" show-if-above bordered class="bg-grey-1">
       <q-list>
         <q-item-label header class="text-grey-8">
           Essential Links
@@ -36,7 +36,7 @@ const linksList = [
   },
 ];
 
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import TopMenu from 'layouts/top-menu/TopMenu.vue';
 
@@ -49,16 +49,11 @@ export default defineComponent({
   },
 
   setup() {
-    const leftDrawerOpen = ref(false);
     const router = useRouter();
 
     return {
       essentialLinks: linksList,
-      leftDrawerOpen,
       router,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
     };
   },
 });

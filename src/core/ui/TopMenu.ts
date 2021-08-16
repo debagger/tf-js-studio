@@ -1,6 +1,14 @@
+import { IActionBase } from '../actions/action.interface';
+import actions from './../actions/actions';
+
+type ExtractKeysOfValueType<T, K> = {
+  [I in keyof T]: T[I] extends K ? I : never;
+}[keyof T];
+
+type ActionName = ExtractKeysOfValueType<typeof actions, IActionBase>;
+
 export type ITopMenu = ITopMenuItem[];
 export type ITopMenuRoot = ITopMenuSubmenu[];
-
 export interface ITopMenuItem {
   type: ITopMenuItemType;
 }
@@ -31,13 +39,16 @@ export interface ITopMenuSubmenu extends ITopMenuItem {
 export function separator(): ITopMenuSeparatorItem {
   return { type: '[SeparatorItem]' };
 }
-
-export function action(
-  caption: string,
-  visible = true,
-  enabled = true
-): ITopMenuActionItem {
-  return { type: '[ActionItem]', caption, visible, enabled };
+//eslint
+export function action(actionName: ActionName): ITopMenuActionItem {
+  const action: IActionBase = actions[actionName];
+  const caption = action.caption;
+  return {
+    type: '[ActionItem]',
+    caption,
+    enabled: true,
+    visible: true,
+  };
 }
 
 export function submenu(
