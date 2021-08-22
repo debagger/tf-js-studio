@@ -1,7 +1,9 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-header elevated>
-      <top-menu />
+      <window-header minimize maximize close>
+        <top-menu />
+      </window-header>
     </q-header>
 
     <q-drawer behavior="desktop" show-if-above bordered class="bg-grey-1">
@@ -38,7 +40,8 @@ const linksList = [
 
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import TopMenu from 'layouts/top-menu/TopMenu.vue';
+import TopMenu from 'src/components/TopMenu.vue';
+import WindowHeader from 'components/WindowHeader.vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -46,6 +49,7 @@ export default defineComponent({
   components: {
     EssentialLink,
     TopMenu,
+    WindowHeader,
   },
 
   setup() {

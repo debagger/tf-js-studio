@@ -1,10 +1,10 @@
 <template>
-  <q-item clickable v-close-popup>
+  <q-item clickable v-close-popup @click="execute">
     <q-item-section>{{ caption }}</q-item-section>
   </q-item>
 </template>
 <script lang="ts">
-import { ITopMenuActionItem } from 'src/core/ui/TopMenu';
+import { ITopMenuActionItem } from 'src/composable/app.topmenu';
 import { defineComponent, PropType, ref } from 'vue';
 
 export default defineComponent({
@@ -13,7 +13,10 @@ export default defineComponent({
   },
   setup(props) {
     const caption = ref(props.value.caption);
-    return { caption };
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const execute = props.value.execute;
+
+    return { caption, execute };
   },
 });
 </script>

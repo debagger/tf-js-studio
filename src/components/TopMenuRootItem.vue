@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { ITopMenuSubmenu } from 'src/core/ui/TopMenu';
+import { ITopMenuSubmenu } from 'src/composable/app.topmenu';
 import { defineComponent, PropType, ref } from 'vue';
 import TopMenuItemContainer from './TopMenuItemContainer.vue';
 

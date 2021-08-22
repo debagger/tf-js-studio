@@ -1,9 +1,9 @@
-import { action, separator, submenu, ITopMenuRoot } from './TopMenu';
+import { action, separator, submenu, ITopMenuRoot } from './app.topmenu';
 
 export function getMenu(): ITopMenuRoot {
   const file = submenu('File', [
-    action('file.new'),
     action('file.open'),
+    action('file.new'),
     separator(),
     submenu('Preferences', [
       action('prefs.global'),

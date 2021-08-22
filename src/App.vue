@@ -1,10 +1,16 @@
 <template>
   <router-view />
+  <Suspense>
+    <dialog-open-file />
+  </Suspense>
 </template>
+//
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import DialogOpenFile from './components/DialogOpenFile.vue';
 export default defineComponent({
-  name: 'App'
-})
+  components: { DialogOpenFile },
+  name: 'App',
+});
 </script>

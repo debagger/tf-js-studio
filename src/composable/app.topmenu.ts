@@ -1,11 +1,5 @@
-import { IActionBase } from '../actions/action.interface';
-import actions from './../actions/actions';
-
-type ExtractKeysOfValueType<T, K> = {
-  [I in keyof T]: T[I] extends K ? I : never;
-}[keyof T];
-
-type ActionName = ExtractKeysOfValueType<typeof actions, IActionBase>;
+import { useActionManager } from 'src/composable/app.actions.manager';
+const { getActionContent, executeAction } = useActionManager();
 
 export type ITopMenu = ITopMenuItem[];
 export type ITopMenuRoot = ITopMenuSubmenu[];
@@ -26,6 +20,7 @@ export interface ITopMenuActionItem extends ITopMenuItem {
   caption: string;
   visible: boolean;
   enabled: boolean;
+  execute: () => void;
 }
 
 export interface ITopMenuSubmenu extends ITopMenuItem {
@@ -39,13 +34,14 @@ export interface ITopMenuSubmenu extends ITopMenuItem {
 export function separator(): ITopMenuSeparatorItem {
   return { type: '[SeparatorItem]' };
 }
-//eslint
-export function action(actionName: ActionName): ITopMenuActionItem {
-  const action: IActionBase = actions[actionName];
-  const caption = action.caption;
+
+export function action(actionName: string): ITopMenuActionItem {
+  const action = getActionContent(actionName);
+  const caption = action.caption as unknown as string;
   return {
     type: '[ActionItem]',
     caption,
+    execute: () => executeAction(actionName),
     enabled: true,
     visible: true,
   };
